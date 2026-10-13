@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root {
+            --bg: #eef1f8;
+            --card: #ffffff;
+            --text: #1f2430;
+            --muted: #6b7280;
+            --border: #d5dae6;
+            --accent: #4f46e5;
+            --accent-hover: #4338ca;
+            --result-bg: #f3f4ff;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #12141c;
+                --card: #1c1f2b;
+                --text: #e8eaf2;
+                --muted: #9aa1b5;
+                --border: #343950;
+                --accent: #818cf8;
+                --accent-hover: #6366f1;
+                --result-bg: #252a40;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            background: var(--bg);
+            color: var(--text);
+            font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            margin: 0 0 20px;
+            letter-spacing: -0.02em;
+        }
+
+        form {
+            width: 100%;
+            max-width: 380px;
+            background: var(--card);
+            padding: 28px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 1rem;
+            color: var(--text);
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            outline: none;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+        }
+
+        /* the <br><br> tags give spacing; tighten them up */
+        br {
+            display: block;
+            content: "";
+            margin-bottom: 6px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 13px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            background: var(--accent);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.15s, transform 0.05s;
+        }
+
+        button:hover {
+            background: var(--accent-hover);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        #answer {
+            width: 100%;
+            max-width: 380px;
+            margin: 20px 0 0;
+            padding: 16px 18px;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            background: var(--result-bg);
+            border: 1px dashed var(--accent);
+            border-radius: 12px;
+            word-break: break-all;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Basic Calculator</h1>
+
+    <form>
+        <label>Enter First Number</label>
+        <input type="number" id="num1"><br><br>
+
+        <label>Enter Second Number</label>
+        <input type="number" id="num2"><br><br>
+
+        <label>Enter Operator</label>
+        <!-- <input type="number" id="operator"><br><br> -->
+        <select name="" id="operator">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+
+        <button onclick="calculate(event)">Calculate</button>
+    </form>
+
+
+    <p id="answer">Answer will appear here</p>
+
+    <script>
+        const calculate = (event) => {
+            event.preventDefault();
+            const num1 = parseFloat(document.getElementById(`num1`).value);
+            const num2 = parseFloat(document.getElementById(`num2`).value);
+            const operator = document.getElementById(`operator`).value;
+            const answer = document.getElementById(`answer`);
+            if (Number.isNaN(num1) || Number.isNaN(num2)) {
+                answer.textContent = "Please enter both numbers.";
+                return;
+            }
+            let result;
+
+            if (operator == "+") {
+                result = num1 + num2;
+            } else if (operator == "-") {
+                result = num1 - num2;
+            } else if (operator == "*") {
+                result = num1 * num2;
+            } else result = num1 / num2;
+            answer.innerHTML = `${result}`;
+        }
+
+    </script>
+</body>
+
+</html>
